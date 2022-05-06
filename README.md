@@ -1,5 +1,5 @@
 # Cubos flix
-Site made for the second challenge of Cubos Academy's FullStack software development course. In the construction process, only HTML and CSS were used.
+Site made for the second challenge of Cubos Academy's FullStack software development course. In the construction process, only HTML, CSS and Javascript were used.
 
 ## Link to see the project working
 
