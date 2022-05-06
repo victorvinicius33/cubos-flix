@@ -102,6 +102,13 @@ const moviesCarousel = () => {
             }
 
             allPages = pages;
+            pageNumber = 0;
+
+            if (!getHighlightMovieInfo) {
+                const highlightMovieId = dayMovies.results[0].id;
+                highlightMovie(highlightMovieId);
+                getHighlightMovieInfo = true;
+            }
 
             for (let i = 0; i < 5; i++) {
                 carousel(allPages[pageNumber], i);
@@ -127,6 +134,7 @@ const moviesCarousel = () => {
                 if (pageNumber < 0) {
                     pageNumber = 3;
                 }
+
                 for (let i = 0; i < 5; i++) {
                     carousel(allPages[pageNumber], i);
                 }
@@ -143,9 +151,8 @@ const searchMovie = () => {
             movies.innerHTML = '';
             btnNext.classList.remove('hidden');
             btnPrev.classList.remove('hidden');
-            for (let i = 0; i < 5; i++) {
-                carousel(allPages[0], i);
-            }
+
+            moviesCarousel();
 
             return;
         }
@@ -166,57 +173,69 @@ const searchMovie = () => {
                     movies.innerHTML = '';
                     btnNext.classList.remove('hidden');
                     btnPrev.classList.remove('hidden');
-                    for (let i = 0; i < 5; i++) {
-                        carousel(allPages[0], i);
-                    }
+
+                    moviesCarousel();
+
                     return;
+                }
+
+                const pages = [];
+
+                for (let i = 0; i < movieSearched.results.length; i = i + 5) {
+                    pages.push(movieSearched.results.slice(i, i + 5));
+                }
+
+                allPages = pages;
+
+                const count = movieSearched.results.length < 5 ? movieSearched.results.length : 5;
+
+                for (let i = 0; i < count; i++) {
+                    carousel(allPages[pageNumber], i);
                 }
 
                 btnNext.classList.add('hidden');
                 btnPrev.classList.add('hidden');
-
-                carousel(movieSearched.results, 0);
             });
         });
     });
 }
 
-const highlightMovie = () => {
-    fetch('https://tmdb-proxy.cubos-academy.workers.dev/3/movie/436969?language=pt-BR').then((res) => {
-        const promise = res.json();
+const highlightMovie = (highlightMovieId) => {
+    fetch(`https://tmdb-proxy.cubos-academy.workers.dev/3/movie/${highlightMovieId}?language=pt-BR`).then((res) => {
+            const promise = res.json();
 
-        promise.then((highlightInfo) => {
-            const highlightVideoBackground = document.querySelector('.highlight__video');
-            const highlightTittle = document.querySelector('.highlight__title');
-            const highligthRating = document.querySelector('.highlight__rating');
-            const highlightGenres = document.querySelector('.highlight__genres');
-            const highlightLaunch = document.querySelector('.highlight__launch');
-            const highlightDescription = document.querySelector('.highlight__description');
+            promise.then((highlightInfo) => {
+                const highlightVideoBackground = document.querySelector('.highlight__video');
+                const highlightTittle = document.querySelector('.highlight__title');
+                const highligthRating = document.querySelector('.highlight__rating');
+                const highlightGenres = document.querySelector('.highlight__genres');
+                const highlightLaunch = document.querySelector('.highlight__launch');
+                const highlightDescription = document.querySelector('.highlight__description');
 
-            let movieGenres = [];
+                let movieGenres = [];
 
-            for (let i = 0; i < highlightInfo.genres.length; i++) {
-                movieGenres.push(highlightInfo.genres[i].name);
-            }
+                for (let i = 0; i < highlightInfo.genres.length; i++) {
+                    movieGenres.push(highlightInfo.genres[i].name);
+                }
 
-            movieGenres = movieGenres.join(', ');
+                movieGenres = movieGenres.join(', ');
 
-            let releaseDate = highlightInfo.release_date.split('-');
-            let temp = releaseDate[0];
-            releaseDate[0] = releaseDate[2];
-            releaseDate[2] = temp;
-            releaseDate = releaseDate.join('-');
+                let releaseDate = highlightInfo.release_date.split('-');
+                let temp = releaseDate[0];
+                releaseDate[0] = releaseDate[2];
+                releaseDate[2] = temp;
+                releaseDate = releaseDate.join('-');
 
-            highlightVideoBackground.style.backgroundImage = `url(${highlightInfo.backdrop_path})`;
-            highlightTittle.textContent = highlightInfo.title;
-            highligthRating.textContent = highlightInfo.vote_average;
-            highlightGenres.textContent = movieGenres;
-            highlightLaunch.textContent = releaseDate;
-            highlightDescription.textContent = highlightInfo.overview;
+                highlightVideoBackground.style.backgroundImage = `url(${highlightInfo.backdrop_path})`;
+                highlightTittle.textContent = highlightInfo.title;
+                highligthRating.textContent = highlightInfo.vote_average;
+                highlightGenres.textContent = movieGenres;
+                highlightLaunch.textContent = releaseDate;
+                highlightDescription.textContent = highlightInfo.overview.length < 500 ? highlightInfo.overview : highlightInfo.overview.substr(0, 300) + '...';
+            });
         });
-    });
 
-    fetch('https://tmdb-proxy.cubos-academy.workers.dev/3/movie/436969/videos?language=pt-BR').then((res) => {
+    fetch(`https://tmdb-proxy.cubos-academy.workers.dev/3/movie/${highlightMovieId}/videos?language=pt-BR`).then((res) => {
         const promise = res.json();
 
         promise.then((highlight) => {
@@ -265,10 +284,9 @@ const darkTheme = () => {
 }
 
 let allPages = [];
-
 let pageNumber = 0;
+let getHighlightMovieInfo = false;
 
 moviesCarousel(pageNumber);
 searchMovie();
-highlightMovie();
 darkTheme();
