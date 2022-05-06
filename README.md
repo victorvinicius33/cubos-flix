@@ -8,6 +8,10 @@ https://victorvinicius33.github.io/cubos-flix/
 ## Project Images
 <br>
 
+<img src="./.github/assets/cubos-flix-home.PNG" alt="cubos flix home">
+<img src="./.github/assets/cubos-flix-modal.PNG" alt="cubos flix modal">
+<img src="./.github/assets/cubos-flix-search.PNG" alt="cubos flix search">
+
 ## Author
 
 | [<img src="https://avatars.githubusercontent.com/u/94022088?s=400&u=829c8531a69be7d30b1096c762a5ff4f9a7172fe&v=4" width=115><br><sub>Victor Vinícius da Silva Galvão</sub>](https://github.com/victorvinicius33) 
