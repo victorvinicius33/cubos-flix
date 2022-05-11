@@ -102,6 +102,7 @@ const moviesCarousel = () => {
             }
 
             allPages = pages;
+            numberOfPages = 3;
             currentPageNumber = 0;
 
             if (!getHighlightMovieInfo) {
@@ -118,11 +119,11 @@ const moviesCarousel = () => {
                 movies.innerHTML = '';
                 currentPageNumber++;
 
-                if (currentPageNumber > 3) {
+                if (currentPageNumber > numberOfPages) {
                     currentPageNumber = 0;
                 }
 
-                for (let i = 0; i < 5; i++) {
+                for (let i = 0; i < allPages[currentPageNumber].length; i++) {
                     carousel(allPages[currentPageNumber], i);
                 }
             });
@@ -132,10 +133,10 @@ const moviesCarousel = () => {
                 currentPageNumber--;
 
                 if (currentPageNumber < 0) {
-                    currentPageNumber = 3;
+                    currentPageNumber = numberOfPages;
                 }
 
-                for (let i = 0; i < 5; i++) {
+                for (let i = 0; i < allPages[currentPageNumber].length; i++) {
                     carousel(allPages[currentPageNumber], i);
                 }
             });
@@ -171,8 +172,8 @@ const searchMovie = () => {
             promise.then((movieSearched) => {
                 if (movieSearched.results.length === Number(0)) {
                     movies.innerHTML = '';
-                    btnNext.classList.remove('hidden');
-                    btnPrev.classList.remove('hidden');
+                    //btnNext.classList.remove('hidden');
+                    //btnPrev.classList.remove('hidden');
 
                     moviesCarousel();
 
@@ -186,6 +187,7 @@ const searchMovie = () => {
                 }
 
                 allPages = pages;
+                numberOfPages = (movieSearched.results.length % 5) === 0 ? (movieSearched.results.length / 5) - 1 : (movieSearched.results.length / 5);
 
                 const count = movieSearched.results.length < 5 ? movieSearched.results.length : 5;
 
@@ -193,8 +195,8 @@ const searchMovie = () => {
                     carousel(allPages[currentPageNumber], i);
                 }
 
-                btnNext.classList.add('hidden');
-                btnPrev.classList.add('hidden');
+                //btnNext.classList.add('hidden');
+                //btnPrev.classList.add('hidden');
             });
         });
     });
@@ -284,6 +286,7 @@ const darkTheme = () => {
 }
 
 let allPages = [];
+let numberOfPages = 0;
 let currentPageNumber = 0;
 let getHighlightMovieInfo = false;
 
