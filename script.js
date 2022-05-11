@@ -102,7 +102,7 @@ const moviesCarousel = () => {
             }
 
             allPages = pages;
-            pageNumber = 0;
+            currentPageNumber = 0;
 
             if (!getHighlightMovieInfo) {
                 const highlightMovieId = dayMovies.results[0].id;
@@ -111,32 +111,32 @@ const moviesCarousel = () => {
             }
 
             for (let i = 0; i < 5; i++) {
-                carousel(allPages[pageNumber], i);
+                carousel(allPages[currentPageNumber], i);
             }
 
             btnNext.addEventListener('click', () => {
                 movies.innerHTML = '';
-                pageNumber++;
+                currentPageNumber++;
 
-                if (pageNumber > 3) {
-                    pageNumber = 0;
+                if (currentPageNumber > 3) {
+                    currentPageNumber = 0;
                 }
 
                 for (let i = 0; i < 5; i++) {
-                    carousel(allPages[pageNumber], i);
+                    carousel(allPages[currentPageNumber], i);
                 }
             });
 
             btnPrev.addEventListener('click', () => {
                 movies.innerHTML = '';
-                pageNumber--;
+                currentPageNumber--;
 
-                if (pageNumber < 0) {
-                    pageNumber = 3;
+                if (currentPageNumber < 0) {
+                    currentPageNumber = 3;
                 }
 
                 for (let i = 0; i < 5; i++) {
-                    carousel(allPages[pageNumber], i);
+                    carousel(allPages[currentPageNumber], i);
                 }
             });
         });
@@ -157,7 +157,7 @@ const searchMovie = () => {
             return;
         }
 
-        pageNumber = 0;
+        currentPageNumber = 0;
 
         movies.innerHTML = '';
         const query = input.value;
@@ -190,7 +190,7 @@ const searchMovie = () => {
                 const count = movieSearched.results.length < 5 ? movieSearched.results.length : 5;
 
                 for (let i = 0; i < count; i++) {
-                    carousel(allPages[pageNumber], i);
+                    carousel(allPages[currentPageNumber], i);
                 }
 
                 btnNext.classList.add('hidden');
@@ -284,9 +284,9 @@ const darkTheme = () => {
 }
 
 let allPages = [];
-let pageNumber = 0;
+let currentPageNumber = 0;
 let getHighlightMovieInfo = false;
 
-moviesCarousel(pageNumber);
+moviesCarousel(currentPageNumber);
 searchMovie();
 darkTheme();
