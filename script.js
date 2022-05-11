@@ -172,8 +172,10 @@ const searchMovie = () => {
             promise.then((movieSearched) => {
                 if (movieSearched.results.length === Number(0)) {
                     movies.innerHTML = '';
-                    //btnNext.classList.remove('hidden');
-                    //btnPrev.classList.remove('hidden');
+                    if (btnNext.classList.contains('hidden')) {
+                        btnNext.classList.remove('hidden');
+                        btnPrev.classList.remove('hidden');
+                    }
 
                     moviesCarousel();
 
@@ -186,8 +188,13 @@ const searchMovie = () => {
                     pages.push(movieSearched.results.slice(i, i + 5));
                 }
 
+                if (btnNext.classList.contains('hidden')) {
+                    btnNext.classList.remove('hidden');
+                    btnPrev.classList.remove('hidden');
+                }
+
                 allPages = pages;
-                numberOfPages = (movieSearched.results.length % 5) === 0 ? (movieSearched.results.length / 5) - 1 : (movieSearched.results.length / 5);
+                numberOfPages = (movieSearched.results.length % 5) === 0 ? (movieSearched.results.length / 5) - 1 : (movieSearched.results.length / 5); 
 
                 const count = movieSearched.results.length < 5 ? movieSearched.results.length : 5;
 
@@ -195,8 +202,10 @@ const searchMovie = () => {
                     carousel(allPages[currentPageNumber], i);
                 }
 
-                //btnNext.classList.add('hidden');
-                //btnPrev.classList.add('hidden');
+                if (movieSearched.results.length <= 5) {
+                    btnNext.classList.add('hidden');
+                    btnPrev.classList.add('hidden');
+                }
             });
         });
     });
