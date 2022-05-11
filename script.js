@@ -231,7 +231,7 @@ const highlightMovie = (highlightMovieId) => {
                 highligthRating.textContent = highlightInfo.vote_average;
                 highlightGenres.textContent = movieGenres;
                 highlightLaunch.textContent = releaseDate;
-                highlightDescription.textContent = highlightInfo.overview.length < 500 ? highlightInfo.overview : highlightInfo.overview.substr(0, 300) + '...';
+                highlightDescription.textContent = highlightInfo.overview.length < 300 ? highlightInfo.overview : highlightInfo.overview.substr(0, 300) + '...';
             });
         });
 
