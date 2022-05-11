@@ -114,32 +114,6 @@ const moviesCarousel = () => {
             for (let i = 0; i < 5; i++) {
                 carousel(allPages[currentPageNumber], i);
             }
-
-            btnNext.addEventListener('click', () => {
-                movies.innerHTML = '';
-                currentPageNumber++;
-                console.log(numberOfPages)
-                if (currentPageNumber > numberOfPages) {
-                    currentPageNumber = 0;
-                }
-
-                for (let i = 0; i < allPages[currentPageNumber].length; i++) {
-                    carousel(allPages[currentPageNumber], i);
-                }
-            });
-
-            btnPrev.addEventListener('click', () => {
-                movies.innerHTML = '';
-                currentPageNumber--;
-                console.log(numberOfPages)
-                if (currentPageNumber < 0) {
-                    currentPageNumber = numberOfPages;
-                }
-
-                for (let i = 0; i < allPages[currentPageNumber].length; i++) {
-                    carousel(allPages[currentPageNumber], i);
-                }
-            });
         });
     });
 }
@@ -172,6 +146,7 @@ const searchMovie = () => {
             promise.then((movieSearched) => {
                 if (movieSearched.results.length === Number(0)) {
                     movies.innerHTML = '';
+                    
                     if (btnNext.classList.contains('hidden')) {
                         btnNext.classList.remove('hidden');
                         btnPrev.classList.remove('hidden');
@@ -258,6 +233,32 @@ const highlightMovie = (highlightMovieId) => {
     });
 }
 
+const btnPrevCarousel = () => btnPrev.addEventListener('click', () => {
+    movies.innerHTML = '';
+    currentPageNumber--;
+
+    if (currentPageNumber < 0) {
+        currentPageNumber = numberOfPages;
+    }
+
+    for (let i = 0; i < allPages[currentPageNumber].length; i++) {
+        carousel(allPages[currentPageNumber], i);
+    }
+});
+
+const btnNextCarousel = () => btnNext.addEventListener('click', () => {
+    movies.innerHTML = '';
+    currentPageNumber++;
+
+    if (currentPageNumber > numberOfPages) {
+        currentPageNumber = 0;
+    }
+
+    for (let i = 0; i < allPages[currentPageNumber].length; i++) {
+        carousel(allPages[currentPageNumber], i);
+    }
+});
+
 const darkTheme = () => {
     const initialTheme = localStorage.getItem('theme');
     btnTheme.setAttribute('src', initialTheme === 'light' ? './assets/light-mode.svg' : './assets/dark-mode.svg');
@@ -301,4 +302,6 @@ let getHighlightMovieInfo = false;
 
 moviesCarousel(currentPageNumber);
 searchMovie();
+btnPrevCarousel();
+btnNextCarousel();
 darkTheme();
