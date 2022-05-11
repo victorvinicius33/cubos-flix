@@ -38,6 +38,7 @@ body {
 
 .btn-theme {
   cursor: pointer;
+  width: 40px;
 }
 
 .container {
