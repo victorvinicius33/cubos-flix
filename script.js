@@ -118,7 +118,7 @@ const moviesCarousel = () => {
             btnNext.addEventListener('click', () => {
                 movies.innerHTML = '';
                 currentPageNumber++;
-
+                console.log(numberOfPages)
                 if (currentPageNumber > numberOfPages) {
                     currentPageNumber = 0;
                 }
@@ -131,7 +131,7 @@ const moviesCarousel = () => {
             btnPrev.addEventListener('click', () => {
                 movies.innerHTML = '';
                 currentPageNumber--;
-
+                console.log(numberOfPages)
                 if (currentPageNumber < 0) {
                     currentPageNumber = numberOfPages;
                 }
@@ -194,7 +194,7 @@ const searchMovie = () => {
                 }
 
                 allPages = pages;
-                numberOfPages = (movieSearched.results.length % 5) === 0 ? (movieSearched.results.length / 5) - 1 : (movieSearched.results.length / 5); 
+                numberOfPages = Math.round(movieSearched.results.length / 5) - 1;
 
                 const count = movieSearched.results.length < 5 ? movieSearched.results.length : 5;
 
