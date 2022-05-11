@@ -12,6 +12,12 @@ https://victorvinicius33.github.io/cubos-flix/
 <img src="./.github/assets/cubos-flix-modal.PNG" alt="cubos flix modal">
 <img src="./.github/assets/cubos-flix-search.PNG" alt="cubos flix search">
 
+## How to use
+
+- You can use the search bar to search for a movie.
+- When you click in a movie, it will show a poster with the description, genres and the movie score.
+- If you click in the highlight movie image, it will redirect you to a new browser tab in youtube to see the movie trailer.
+
 ## Author
 
 | [<img src="https://avatars.githubusercontent.com/u/94022088?s=400&u=829c8531a69be7d30b1096c762a5ff4f9a7172fe&v=4" width=115><br><sub>Victor Vinícius da Silva Galvão</sub>](https://github.com/victorvinicius33) 
