@@ -60,7 +60,7 @@ const modalOpen = (allMovieClasses) => {
     });
 }
 
-const carousel = (movieSelected, i) => {
+const movieCard = (movieSelected, i) => {
     const movie = document.createElement('div');
     movie.classList.add('movie');
     movie.id = movieSelected[i].id;
@@ -112,7 +112,7 @@ const moviesCarousel = () => {
             }
 
             for (let i = 0; i < 5; i++) {
-                carousel(allPages[currentPageNumber], i);
+                movieCard(allPages[currentPageNumber], i);
             }
         });
     });
@@ -146,7 +146,7 @@ const searchMovie = () => {
             promise.then((movieSearched) => {
                 if (movieSearched.results.length === Number(0)) {
                     movies.innerHTML = '';
-                    
+
                     if (btnNext.classList.contains('hidden')) {
                         btnNext.classList.remove('hidden');
                         btnPrev.classList.remove('hidden');
@@ -174,7 +174,7 @@ const searchMovie = () => {
                 const count = movieSearched.results.length < 5 ? movieSearched.results.length : 5;
 
                 for (let i = 0; i < count; i++) {
-                    carousel(allPages[currentPageNumber], i);
+                    movieCard(allPages[currentPageNumber], i);
                 }
 
                 if (movieSearched.results.length <= 5) {
@@ -242,7 +242,7 @@ const btnPrevCarousel = () => btnPrev.addEventListener('click', () => {
     }
 
     for (let i = 0; i < allPages[currentPageNumber].length; i++) {
-        carousel(allPages[currentPageNumber], i);
+        movieCard(allPages[currentPageNumber], i);
     }
 });
 
@@ -255,7 +255,7 @@ const btnNextCarousel = () => btnNext.addEventListener('click', () => {
     }
 
     for (let i = 0; i < allPages[currentPageNumber].length; i++) {
-        carousel(allPages[currentPageNumber], i);
+        movieCard(allPages[currentPageNumber], i);
     }
 });
 
