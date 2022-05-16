@@ -1,5 +1,5 @@
 # Cubos flix
-Site made for the second challenge of Cubos Academy's FullStack software development course. In the construction process, only HTML, CSS and Javascript were used.
+Site made for the second challenge of Cubos Academy's FullStack software development course. In the construction process, only HTML, CSS and Javascript were used, and it was constructed with dinamic HTML using Javascript.
 
 This website, show you the 20 most watched movies of the day in the homepage, and you can search for any movie to see his infos. In the end of the page, it has the highlight movie of the day.
 
